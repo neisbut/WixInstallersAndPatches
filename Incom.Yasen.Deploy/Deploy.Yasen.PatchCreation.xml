@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+	<?include Deploy.Variables.wxi?>
+	<?include Deploy.Yasen.Variables.wxi?>
+	
+	<?define PatchDescription="Обновление $(var.ProductName)"?>
+
+	<PatchCreation
+		Id="$(var.PatchId)" Codepage="$(var.Codepage)"
+		  CleanWorkingFolder="yes"
+		  OutputPath="patch.pcp"
+		  WholeFilesOnly="yes"
+       >
+
+		<PatchInformation
+				Description="$(var.PatchDescription)"
+				Comments="$(var.PatchDescription)"
+				Manufacturer="$(var.Manufacturer)"/>
+
+		<PatchMetadata
+				AllowRemoval="yes"
+				Description="$(var.PatchDescription)"
+				ManufacturerName="$(var.Manufacturer)"
+				TargetProductName="$(var.ProductName)"
+				MoreInfoURL="$(var.ManufacturerUrl)"
+				Classification="Update"
+				DisplayName="$(var.PatchDescription) до версии $(var.PatchVersion)"/>
+
+
+		<Family DiskId="2" Name="$(var.Family)" SequenceStart="5000" >  
+			<UpgradeImage SourceFile="$(var.NewMsi)" Id="NewPackage"   >
+
+				<TargetImage SourceFile="$(var.BaseMsi)" Order="2" Id="BasePackage" IgnoreMissingFiles="no" Validation = "0x00000912" />
+
+			</UpgradeImage>
+		</Family>
+
+		<PatchSequence PatchFamily="$(var.PatchFamily)" Sequence="$(var.PatchVersion)" Supersede="yes" ProductCode="$(var.ProductCode)"/>
+
+	</PatchCreation>
+</Include>

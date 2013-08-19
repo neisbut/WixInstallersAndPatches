@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+	<Package
+		InstallerVersion="200"
+		Compressed="yes"
+		Languages="$(var.Language)"
+		SummaryCodepage="$(var.Codepage)"
+		Comments="Установщик $(var.ProductName)"
+		Keywords="Лес, пожар, учет, анализ, обмен, данные"
+		Description="$(var.Subject)"
+		InstallScope="perMachine"
+	/>
+
+	<!--Запрос прав админа-->
+	<Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+	
+	<MajorUpgrade DowngradeErrorMessage ="Уже установлена новая версия этого продукта" AllowDowngrades="no"   />
+	<Upgrade Id='$(var.UpgradeCode)' >
+		<UpgradeVersion
+			OnlyDetect="no"
+			Maximum="$(var.ProductVersion)" IncludeMaximum="no"
+			Property="OLDERVERSIONBEINGUPGRADED"
+			MigrateFeatures="yes"
+			/>
+	</Upgrade>
+
+	<!-- Media -->
+	<Media Id="1" Cabinet="media1.cab" EmbedCab="yes"  />
+</Include>

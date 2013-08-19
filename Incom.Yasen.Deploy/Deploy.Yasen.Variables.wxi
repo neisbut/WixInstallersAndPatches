@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	
+	<?define ProductName="Ясень" ?>
+	
+	<?define YasenProductCode="{CFDD712C-254E-4699-8B8F-F5133486591B}"?>
+	<?define YasenUpgradeCode="{3B48F96B-E69E-4AE8-8A43-6F3DB6F03229}"?>
+	
+
+</Include>

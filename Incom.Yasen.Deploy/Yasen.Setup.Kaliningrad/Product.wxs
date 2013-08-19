@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+	<!-- Globals -->
+	<?define WixCommonPath="$(var.ProjectDir)..\"?>
+	<?include $(var.WixCommonPath)\Deploy.Variables.wxi?>
+	<?include $(var.WixCommonPath)\Deploy.Yasen.Variables.wxi?>
+
+	<!-- Locals -->
+	<?define Subject="Калининградская область"?>
+	<?define ProductVersion="$(incom.FileVersion($(var.Yasen.UI.TargetPath)))"?>
+
+	<?define UpgradeCode="$(var.YasenUpgradeCode)"?>
+	<?define ProductCode="$(incom.ChangeGuid($(var.YasenProductCode),$(var.ProductVersion), 2))"?>
+	
+	<Product Id="$(var.ProductCode)"
+				Name="$(var.ProductName)"
+				Language="$(var.Language)"
+				Version="$(var.ProductVersion)"
+				Manufacturer="$(var.Manufacturer)"
+				UpgradeCode="$(var.UpgradeCode)" >
+
+		<?include $(var.WixCommonPath)\Deploy.Yasen.ProductContent.wxi?>
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="APPLICATIONFOLDER" Name="$(var.ProductName)" DiskId="1" >
+
+					<!-- Content -->
+					<Component Id="Component1" Guid="{1F4A6EF3-4B65-4405-8E08-D750E5038C75}">
+						<File Id="File1" Name="content.txt" Source="..\..\Incom.Yasen.Content\content.txt"/>
+						<File Id="File2" Name="Yasen.UI.exe" Source="$(var.Yasen.UI.TargetPath)"/>
+					</Component>
+
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id="ClientSide" Title="Клиент $(var.ProductName)" Level="1" Absent="disallow">
+			<ComponentRef Id="Component1"/>
+		</Feature>
+
+	</Product>
+
+</Wix>
